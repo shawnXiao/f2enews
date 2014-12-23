@@ -1,0 +1,30 @@
+header {
+    position: relative;
+    left: 0;
+    right: 0;
+    padding: 115px 16px 0;
+    background-color: $brand-header;
+    @include transition(position 350ms ease-in);
+    &.header-fixed {
+        position: fixed;
+        padding-top: 20px;
+        .header-title {
+            font-size: 30px;
+        }
+    }
+    @include shadowDepth(2);
+    .header-title {
+        color: $header-title;
+        width: 1160px;
+        margin: 0 auto;
+        line-height: 1.5;
+        font-size: $font-size-large;
+        font-weight: $font-weight-boldest;
+    }
+    .float-btn {
+        background-color: $brand-accent;
+        position: absolute;
+        bottom: -35px;
+        right: 60px;
+    }
+}

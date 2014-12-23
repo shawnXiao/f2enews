@@ -1,0 +1,23 @@
+#news {
+    @include shadowDepth(1);
+    li {
+        list-style-type: none;
+        padding: 20px;
+        border-bottom: 1px solid #f9f9f9;
+        a {
+            color: $gray-dark;
+            text-decoration: none;
+        }
+    }
+    .news-more {
+        display: block;
+        text-decoration: none;
+        height: 30px;
+        padding: 15px 0;
+        line-height: 30px;
+        background-color: $brand-header;
+        font-size: $font-size-large - 30;
+        text-align: center;
+        color: #fff;
+    }
+}

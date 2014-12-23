@@ -1,0 +1,56 @@
+.btn {
+    display: inline-block;
+    position: relative;
+    padding: 30px;
+    text-align: center;
+    color: #fff;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+    border: 1px solid transparent;
+    white-space: nowrap;
+    outline: none;
+    @include shadowDepth(1);
+    @include user-select(none);
+
+    &:active,
+    &.active {
+        outline: none;
+        background-image: none;
+        @include shadowDepth(2);
+    }
+    .overlay {
+        z-index:2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateZ(0);
+        border-radius: 50%;
+        @include transition(background, 500ms, ease-in-out, opacity, 200, eas-in);
+    }
+}
+.btn-info {
+
+}
+
+.flat-btn {
+    box-shadow: none;
+    border: none;
+}
+
+.circle-btn {
+    width: 70px;
+    height: 70px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.sm-btn {
+    @include button-size(10px, 10px, 12px, 1, 2px);
+}
+.full-btn {
+    width: 100%;
+    @include button-size(15px, 15px, 16px, 1, 0);
+}

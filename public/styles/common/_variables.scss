@@ -1,0 +1,21 @@
+$brand-header:         #03a9f4 !default;
+$brand-accent:          #ff4081 !default;
+$brand-success:         #5cb85c !default;
+$brand-info:            #589eef !default;
+
+
+//== Colors
+$gray-darker:            lighten(#000, 12%) !default; // Dividers
+$gray-dark:              lighten(#000, 26%) !default;   // Disabled / Hint Text
+$gray:                   lighten(#000, 54%) !default; // Secondary Text
+$gray-lightest:           lighten(#000, 87%) !default; // Text / Icons
+
+$light-gray: lighten(#fff, 12%) !default;
+
+$header-title: #fff !default;
+
+$font-size-large:  56px !default;
+
+$font-weight-boldest: 400 !default;
+
+$section-default-bg: #fff !default;
