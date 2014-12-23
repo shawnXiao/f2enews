@@ -1,6 +1,6 @@
 # [F2E News](http://f2enews.com)
 
-F2E News 创建的目的是让国内的前端工程师能够更快的接触国内外的前端新闻，让信息更加的扁平化。
+F2E News 创建目的是让国内前端工程师能够更快更全面接触国内外的前端新闻。
 
 F2E News 现目前包括两个部分：News 和 Twitts。
 * News 是各种 weekly 的集合。
