@@ -26,7 +26,7 @@ var NewsApp = React.createClass({
                 queryObj[item.split("=")[0]] = item.split("=")[1];
             });
             if (queryList.code) {
-
+                UserStore.oauthGithub();
             }
 
         }

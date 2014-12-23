@@ -1,4 +1,4 @@
-# F2E News
+# [F2E News](http://f2enews.com)
 
 F2E News 创建的目的是让国内的前端工程师能够更快的接触国内外的前端新闻，让信息更加的扁平化。
 
