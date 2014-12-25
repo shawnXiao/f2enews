@@ -1,4 +1,7 @@
 header {
+    &.fake {
+        display: none;
+    }
     position: relative;
     left: 0;
     right: 0;
@@ -8,6 +11,7 @@ header {
     &.header-fixed {
         position: fixed;
         padding-top: 20px;
+        top: 0;
         .header-title {
             font-size: 30px;
         }

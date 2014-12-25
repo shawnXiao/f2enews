@@ -11,7 +11,7 @@ var Navbar = React.createClass({
     onScroll: function (event) {
         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         var isFiexed = false;
-        if (scrollTop > 120) {
+        if (scrollTop > 130) {
             isFiexed = true;
         } else {
             isFiexed = false;
@@ -30,10 +30,17 @@ var Navbar = React.createClass({
         window.removeEventListener('scroll', this.onScroll)
     },
     render: function () {
-        var className = this.state.isFixed ? 'header-fixed' : '';
+        var className = this.state.isFixed ? '' : '';
+        var classNameFake = this.state.isFixed ? 'header-fixed' : 'fake';
         return (
             <div>
                 <header className={className}>
+                    <div className="header-title">
+                        F2E News
+                    </div>
+                    <Button className="circle-btn float-btn" text="More" clickEvent={this.changeSource} />
+                </header>
+                <header className={classNameFake}>
                     <div className="header-title">
                         F2E News
                     </div>
