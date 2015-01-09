@@ -11,7 +11,7 @@ F2E News 现目前包括两个部分：News 和 Twitts。
 在前端框架上用了 React + Flux, 后端 API 接口为 express, 抓取服务为 python.
 * [React](http://facebook.github.io/react/)
 * [Flux](http://facebook.github.io/flux/docs/overview.html)
-* [expres](http://expressjs.com/)
+* [express](http://expressjs.com/)
 
 
 ## Only Support latest browser
