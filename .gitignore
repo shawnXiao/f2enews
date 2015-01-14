@@ -5,4 +5,5 @@ node_modules
 bower_components
 .DS_Store
 qnTest.js
+config.js
 public/build*

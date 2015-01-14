@@ -15,7 +15,6 @@ var News = React.createClass({
             newsRows.push(<NewsItem newsItem={newsItem} index={index} />)
         })
 
-        var testUrl = "https://github.com/login/oauth/authorize?client_id=78ba6b69b20d7ffac597&scope=user&state=xxx";
         return (
             <div>
                 <a href={testUrl} target="_black"> Test </a>

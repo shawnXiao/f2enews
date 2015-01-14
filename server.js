@@ -7,29 +7,34 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var url = require('url');
 var request = require('request');
 var mongoose   = require('mongoose');
 var News = require('./app/models/news');
 var Twitts = require('./app/models/twitts');
+var config = require('./config');
+var crypto = require('crypto');
+
 mongoose.connect('mongodb://127.0.0.1:27017/f2enews');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-console.log(__dirname + '/public');
 app.use(express.static(__dirname + '/public'));
 
-var port = process.env.PORT || 8080;        // set our port
+
+var port = process.env.PORT || 3000;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
 router.use(function (req, res, next) {
-    console.log('Sth is happening');
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-})
+});
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
@@ -44,7 +49,7 @@ router.route('/news')
         }
         res.json(news);
     })
-})
+});
 
 router.route('/news/start/:start')
 .get(function (req, res) {
@@ -58,16 +63,13 @@ router.route('/news/start/:start')
         }
         res.json(news);
     })
-})
+});
 
 router.route('/oauth/github/:code')
 .get(function (req, res) {
     var code = req.params.code;
-    var oauth = {
-        client_id: '',
-        client_secret: '',
-        code: code
-    };
+    var oauth = config.github;
+
     request.post({
         url: 'https://github.com/login/oauth/access_token',
         headers: {
@@ -87,7 +89,7 @@ router.route('/oauth/github/:code')
             });
         }
     });
-})
+});
 
 router.route('/twitts/start/:start')
 .get(function (req, res) {
@@ -103,7 +105,154 @@ router.route('/twitts/start/:start')
     })
 })
 
+
 // more routes for our API will happen here
+router.route('/oauth/weixin')
+.get(function (req, res) {
+    var reqObj = url.parse(req.url, true);
+    var params = reqObj['query'];
+
+    var signature = params.signature;
+    var timestamp = params.timestamp;
+    var echoStr = params.echostr;
+    var nonce = params.nonce;
+
+    var token = "campus";
+    var temptArray = [token, timestamp, nonce];
+    temptArray.sort();
+
+    var temptStr = temptArray.join('');
+    var shasum = crypto.createHash('sha1');
+    shasum.update(temptStr);
+    var shaResult = shasum.digest('hex');
+
+
+    if (shaResult === signature) {
+        res.send(echoStr);
+    } else {
+        console.log('not weixin server!')
+    }
+});
+
+var access_token = "";
+var weixin_ticket = "";
+
+router.route('/token/weixin')
+.get(function (req, res) {
+    getWeixinToken(function () {
+        res.json({
+            "access_token": access_token
+        })
+    })
+});
+
+router.route('/token/weixin/jsticket')
+.get(function (req, res) {
+    getWeixinTicket(function () {
+        res.json({
+            "ticket": weixin_ticket
+        })
+    })
+});
+
+
+router.route('/token/weixin/jssignature')
+.get(function (req, res) {
+    var reqObj = url.parse(req.url, true);
+    var params = reqObj['query'];
+    var timestamp = params.timestamp;
+    var noncestr = params.nonce;
+    var signUrl = params.signurl;
+    var force = params.force;
+
+    if (force) {
+        weixin_ticket = "";
+    }
+
+    if (weixin_ticket) {
+        res.json({
+            signature: getWeixinJSSignature(noncestr, timestamp, signUrl)
+        });
+    } else {
+        getWeixinTicket(function () {
+            res.json({
+                signature: getWeixinJSSignature(noncestr, timestamp, signUrl)
+            });
+        });
+    }
+
+});
+
+
+function getWeixinTicket(callback) {
+    getWeixinToken(function () {
+
+        request.get({
+            url: "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + access_token + "&type=jsapi"
+        }, function (e, r, body) {
+            var result = JSON.parse(body);
+            weixin_ticket = result.ticket;
+            expires_in = result.expires_in;
+
+            setTimeout(function () {
+                weixin_ticket = "";
+            }, expires_in * 1000);
+
+            if (callback) {
+                callback.call(this);
+            }
+
+            return  weixin_ticket;
+        });
+
+    });
+}
+
+function getWeixinToken(callback) {
+    var oauth = config.weixin;
+
+    if (access_token) {
+        if (callback) {
+            callback.call(this);
+        }
+        return access_token;
+    } else {
+
+        request.get({
+            url: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + oauth.appid + "&secret=" + oauth.secret
+        }, function (e, r, body) {
+            var result = JSON.parse(body);
+
+            access_token = result.access_token;
+            setTimeout(function () {
+                access_token = "";
+            }, expires_in * 1000);
+
+            if (callback) {
+                callback.call(this);
+            }
+
+            return access_token;
+        });
+    }
+}
+
+function getWeixinJSSignature(noncestr, timestamp, signUrl) {
+    var temptArray = ["noncestr=" + noncestr, "jsapi_ticket=" + weixin_ticket, "timestamp=" + timestamp, "url=" + signUrl];
+    temptArray.sort();
+    var temptStr = temptArray.join("&")
+    var shasum = crypto.createHash('sha1');
+    shasum.update(temptStr);
+    var shaResult = shasum.digest('hex');
+
+    console.log("access_token:", access_token);
+    console.log("weixin_ticket:", weixin_ticket);
+    console.log("temptStr:", temptStr);
+    console.log("shaResult:", shaResult);
+
+    return shaResult;
+}
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

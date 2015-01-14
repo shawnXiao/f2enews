@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Test Weixin</title>
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <h1>Test Weixin</h1>
+        <div class="" id="error" style="color: red"></div>
+        <div class="" id="config" style="color: blue"></div>
+        <div>
+            <a href="javascript:void(0)" id="shareApp">Share To People</a>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id="shareQQ">Share To QQ</a>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id="chooseImage">chooseImage</a>
+            <p id="chooseImage-result"></p>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id="openMap">openMap</a>
+            <p id="openMap-result"></p>
+        </div>
+
+        <div>
+            <a href="javascript:void(0)" id="getNetWork">getNetWork</a>
+            <p id="getNetWork-result"></p>
+        </div>
+        <script type="text/javascript" charset="utf-8">
+
+        var wxConfig = {
+            debug: false,
+            appId: "wxdc451c8914f5a50e",
+            timestamp: (+new Date() + "").substring(0, 10) - 0,
+            nonceStr: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
+            signature: "504245c64ad0078553878b23214f057329d439bb",
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation']
+        };
+
+        var xhr = new XMLHttpRequest();
+        var url = "http://f2enews.com/api/token/weixin/jssignature?" + "timestamp=" + wxConfig.timestamp + "&nonce=" + wxConfig.nonceStr + "&signurl=" + location.href;
+        xhr.onreadystatechange = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+
+                    var signature = JSON.parse(xhr.responseText).signature;
+                    wxConfig.signature =  signature
+                    wx.config(wxConfig);
+
+                    document.getElementById("config").innerText = JSON.stringify(wxConfig)
+                    wx.ready(wxReady);
+
+                    wx.error(function (res) {
+                        document.getElementById("error").innerText = JSON.stringify(res.errMsg)
+                    });
+
+                }
+            }
+        }
+        xhr.open("GET", url);
+        xhr.send();
+
+        function wxReady() {
+
+            wx.checkJsApi({
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation'],
+                success: function (res) {
+                    alert("check: " + JSON.stringify(res));
+                }
+            });
+
+            document.getElementById("chooseImage").addEventListener("click", function () {
+                wx.chooseImage({
+                    success: function (res) {
+                        var localIds = res.localIds; 
+                        document.getElementById("chooseImage-result").innerText = JSON.stringify(res);
+                    }
+                });
+
+            });
+
+            document.getElementById("openMap").addEventListener("click", function () {
+                    wx.openLocation({
+                        latitude: 0, // 纬度，浮点数，范围为90 ~ -90
+                        longitude: 0, // 经度，浮点数，范围为180 ~ -180。
+                        name: '', // 位置名
+                        address: '', // 地址详情说明
+                        scale: 1, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                        infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                    });
+ 
+            });
+
+            document.getElementById("getNetWork").addEventListener("click", function () {
+                wx.getNetworkType({
+                    success: function (res) {
+                        var networkType = res.networkType; 
+                        document.getElementById("getNetWork-result").innerText = JSON.stringify(res);
+                    }
+                });
+            });
+
+            document.getElementById("shareQQ").addEventListener("click", function () {
+                 wx.onMenuShareQQ({
+                   title: '互联网之子',
+                  desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+                  link: 'http://movie.douban.com/subject/25785114/',
+                  imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+                  trigger: function (res) {
+                    alert('用户点击发送给QQ');
+                  },
+                  success: function (res) {
+                    alert('已分享');
+                  },
+                  cancel: function (res) {
+                    alert('已取消');
+                  },
+                  fail: function (res) {
+                    alert(JSON.stringify(res));
+                  }
+
+                 });
+            });
+            document.getElementById("shareApp").addEventListener("click", function () {
+                 wx.onMenuShareAppMessage({
+                  title: '互联网之子',
+                  desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+                  link: 'http://movie.douban.com/subject/25785114/',
+                  imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+                  trigger: function (res) {
+                    alert('用户点击发送给朋友');
+                  },
+                  success: function (res) {
+                    alert('已分享');
+                  },
+                  cancel: function (res) {
+                    alert('已取消');
+                  },
+                  fail: function (res) {
+                    alert(JSON.stringify(res));
+                  }
+                });
+                 alert("regist share APP Mesage")
+
+            });
+
+        }
+
+      </script>
+    </body>
+</html>

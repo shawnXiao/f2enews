@@ -15,6 +15,8 @@ var sass = require('gulp-sass');
 var compass = require('gulp-compass');
 var gutil = require('gulp-util');
 var shell = require('gulp-shell');
+var rev = require('gulp-rev');
+var buffer = require('gulp-buffer');
 var glob = require('glob');
 
 // We create an array of dependencies. These are NPM modules you have
@@ -52,6 +54,8 @@ var browserifyTask = function (options) {
       .on('error', gutil.log)
       .pipe(source('main.js'))
       .pipe(gulpif(!options.development, streamify(uglify())))
+      .pipe(buffer())
+      .pipe(rev())
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
         console.log('APP bundle built in ' + (Date.now() - start) + 'ms');
@@ -159,6 +163,7 @@ var cssTask = function (options) {
               sass: './public/styles'
           }))
         .pipe(cssmin())
+        .pipe(rev())
         .pipe(gulp.dest(options.dest));
     }
 }
@@ -186,13 +191,13 @@ gulp.task('online', function () {
   browserifyTask({
     development: false,
     src: './public/js/app.js',
-    dest: './public/build-v2'
+    dest: './public/build'
   });
 
   cssTask({
     development: false,
     src: './public/styles/**/*.scss',
-    dest: './public/build-v2'
+    dest: './public/build'
   });
 
 });
