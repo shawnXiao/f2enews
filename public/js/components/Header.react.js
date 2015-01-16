@@ -8,18 +8,6 @@ var Navbar = React.createClass({
             isFixed: false
         }
     },
-    onScroll: function (event) {
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        var isFiexed = false;
-        if (scrollTop > 130) {
-            isFiexed = true;
-        } else {
-            isFiexed = false;
-        }
-
-        this.setState({isFixed: isFiexed});
-
-    },
     changeSource: function () {
         NewsActions.changeSource();
     },
@@ -30,21 +18,15 @@ var Navbar = React.createClass({
         window.removeEventListener('scroll', this.onScroll)
     },
     render: function () {
-        var className = this.state.isFixed ? '' : '';
-        var classNameFake = this.state.isFixed ? 'header-fixed' : 'fake';
         return (
             <div>
                 <header className={className}>
                     <div className="header-title">
                         F2E News
                     </div>
-                    <Button className="circle-btn float-btn" text="More" clickEvent={this.changeSource} />
-                </header>
-                <header className={classNameFake}>
-                    <div className="header-title">
-                        F2E News
-                    </div>
-                    <Button className="circle-btn float-btn" text="More" clickEvent={this.changeSource} />
+                    <InputSearch />
+                    <Navigator />
+                    <Profile />
                 </header>
             </div>
         )

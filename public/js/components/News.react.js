@@ -17,7 +17,6 @@ var News = React.createClass({
 
         return (
             <div>
-                <a href={testUrl} target="_black"> Test </a>
                 <ul>
                     {newsRows}
                 </ul>

@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var url = require('url');
 var request = require('request');
 var mongoose   = require('mongoose');
+var querystring = require('querystring');
 var News = require('./app/models/news');
 var Twitts = require('./app/models/twitts');
 var config = require('./config');
@@ -28,8 +29,8 @@ var port = process.env.PORT || 3000;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router();              // get an instance of the express Router
 
+var router = express.Router();              // get an instance of the express Router
 router.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -103,7 +104,7 @@ router.route('/twitts/start/:start')
         }
         res.json(twitts);
     })
-})
+});
 
 
 // more routes for our API will happen here
@@ -146,16 +147,6 @@ router.route('/token/weixin')
     })
 });
 
-router.route('/token/weixin/jsticket')
-.get(function (req, res) {
-    getWeixinTicket(function () {
-        res.json({
-            "ticket": weixin_ticket
-        })
-    })
-});
-
-
 router.route('/token/weixin/jssignature')
 .get(function (req, res) {
     var reqObj = url.parse(req.url, true);
@@ -180,8 +171,57 @@ router.route('/token/weixin/jssignature')
             });
         });
     }
-
 });
+
+var weibo_access_token = "";
+router.route('/oauth/weibo')
+.get(function (req, res) {
+    var oauth = config.weibo;
+    var reqObj = url.parse(req.url, true);
+    var params = reqObj['query'];
+    oauth.code = params.code;
+    oauth.redirect_uri = "http://f2enews.com/api/oauth/weibo";
+    request.post({
+        url: 'https://api.weibo.com/oauth2/access_token',
+        form: oauth
+    }, function (e, r, body) {
+        res.json(JSON.parse(body))
+    });
+});
+
+router.route('/send/weibo')
+.get(function (req, res) {
+    var reqObj = url.parse(req.url, true);
+    var params = reqObj['query'];
+    var signature = reqObj['signature'];
+    if (signature !== config.signature) {
+        res.json({
+            "error": "Why you want to use this api? tell me now"
+        })
+        return;
+    }
+
+    var content = decodeURIComponent(params.content);
+    var href = decodeURIComponent(params.href);
+
+    console.log("content: ", content);
+    console.log("href: ", href);
+    console.log("stringify:", querystring.stringify(content + " " + href));
+    console.log("escape :", querystring.escape(content + " " + href));
+    console.log("encodeURIComponent:", encodeURIComponent(content + " " + href));
+
+    request.post({
+        url: 'https://api.weibo.com/2/statuses/update.json',
+        form: {
+            access_token: weibo_access_token,
+            status: content + " " + href
+        }
+    }, function (e, r, body) {
+        res.json(body)
+    });
+});
+
+
 
 
 function getWeixinTicket(callback) {
@@ -191,8 +231,9 @@ function getWeixinTicket(callback) {
             url: "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + access_token + "&type=jsapi"
         }, function (e, r, body) {
             var result = JSON.parse(body);
+            var expires_in = result.expires_in;
+
             weixin_ticket = result.ticket;
-            expires_in = result.expires_in;
 
             setTimeout(function () {
                 weixin_ticket = "";
@@ -222,6 +263,7 @@ function getWeixinToken(callback) {
             url: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + oauth.appid + "&secret=" + oauth.secret
         }, function (e, r, body) {
             var result = JSON.parse(body);
+            var expires_in = result.expires_in;
 
             access_token = result.access_token;
             setTimeout(function () {

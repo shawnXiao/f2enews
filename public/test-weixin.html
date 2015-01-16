@@ -32,24 +32,32 @@
             <a href="javascript:void(0)" id="getNetWork">getNetWork</a>
             <p id="getNetWork-result"></p>
         </div>
+        <div>
+            <a href="javascript:void(0)" id="startRecord">StartRecord</a>
+            <a href="javascript:void(0)" id="stopRecord">StopRecord</a>
+            <a href="javascript:void(0)" id="playVoice">PlayVoice</a>
+            <p id="stopRecord-result"></p>
+        </div>
+
         <script type="text/javascript" charset="utf-8">
 
         var wxConfig = {
             debug: false,
-            appId: "wxdc451c8914f5a50e",
+            appId: "wxa119068ab50688a3",
             timestamp: (+new Date() + "").substring(0, 10) - 0,
             nonceStr: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
             signature: "504245c64ad0078553878b23214f057329d439bb",
-            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation']
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation', 'startRecord', 'stopRecord', 'playVoice']
         };
 
         var xhr = new XMLHttpRequest();
-        var url = "http://f2enews.com/api/token/weixin/jssignature?" + "timestamp=" + wxConfig.timestamp + "&nonce=" + wxConfig.nonceStr + "&signurl=" + location.href;
+        var url = "http://106.185.37.64:3721/signature?" + "timestamp=" + wxConfig.timestamp + "&nonce=" + wxConfig.nonceStr + "&signurl=" + location.href;
+
         xhr.onreadystatechange = function (e) {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
 
-                    var signature = JSON.parse(xhr.responseText).signature;
+                    var signature = JSON.parse(xhr.responseText).shaResult;
                     wxConfig.signature =  signature
                     wx.config(wxConfig);
 
@@ -69,7 +77,7 @@
         function wxReady() {
 
             wx.checkJsApi({
-                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation'],
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'chooseImage', 'getNetworkType', 'openLocation', 'startRecord', 'stopRecord', 'playVoice'],
                 success: function (res) {
                     alert("check: " + JSON.stringify(res));
                 }
@@ -82,7 +90,25 @@
                         document.getElementById("chooseImage-result").innerText = JSON.stringify(res);
                     }
                 });
+            });
 
+            var voiceId;
+            document.getElementById("startRecord").addEventListener("click", function () {
+                    wx.startRecord();
+            });
+            document.getElementById("stopRecord").addEventListener("click", function () {
+                    wx.stopRecord({
+                        success: function (res) {
+                            voiceId = res.localId;
+                            document.getElementById("stopRecord-result").innerText = JSON.stringify(res);
+                        }
+                    });
+            });
+
+            document.getElementById("playVoice").addEventListener("click", function () {
+                    wx.playVoice({
+                        localId: voiceId
+                    });
             });
 
             document.getElementById("openMap").addEventListener("click", function () {
@@ -129,10 +155,10 @@
             });
             document.getElementById("shareApp").addEventListener("click", function () {
                  wx.onMenuShareAppMessage({
-                  title: '互联网之子',
-                  desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-                  link: 'http://movie.douban.com/subject/25785114/',
-                  imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+                  title: '我爱李爽',
+                  desc: '哈哈',
+                  link: 'http://f2enews.com',
+                  imgUrl: 'http://img0.bdstatic.com/img/image/6446027056db8afa73b23eaf953dadde1410240902.jpg',
                   trigger: function (res) {
                     alert('用户点击发送给朋友');
                   },

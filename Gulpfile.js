@@ -54,8 +54,8 @@ var browserifyTask = function (options) {
       .on('error', gutil.log)
       .pipe(source('main.js'))
       .pipe(gulpif(!options.development, streamify(uglify())))
-      .pipe(buffer())
-      .pipe(rev())
+      .pipe(gulpif(!options.development, buffer()))
+      .pipe(gulpif(!options.development, rev()))
       .pipe(gulp.dest(options.dest))
       .pipe(notify(function () {
         console.log('APP bundle built in ' + (Date.now() - start) + 'ms');

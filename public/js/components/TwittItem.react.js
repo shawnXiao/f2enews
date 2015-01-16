@@ -8,7 +8,7 @@ var TwittItem = React.createClass({
             return "<a target='_blank' href='" + m1+ "'>"+ m1 +"</a>"
         });
         return (
-            <li key={twittItem}>
+            <li key={twittItem} id={this.props.index}>
                 <div>
                     <div>
                         <a>

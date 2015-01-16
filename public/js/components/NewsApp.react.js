@@ -52,8 +52,11 @@ var NewsApp = React.createClass({
         return (
             <div>
                 <Navbar />
+                <div class="row">
+                    <Dropdown source={this.state.source}/>
+                </div>
                 <section id="news">
-                {this.state.source == "news" ? <News news={this.state.news} /> : <Twitts twitts={this.state.twitts} />}
+                    {this.state.source == "news" ? <News news={this.state.news} /> : <Twitts twitts={this.state.twitts} />}
                 </section>
             </div>
         )
