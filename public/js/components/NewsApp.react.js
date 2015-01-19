@@ -7,6 +7,7 @@ var News = require('./News.react');
 var Navbar = require('./Header.react');
 var Button = require('./Button.react');
 var Twitts = require('./Twitts.react');
+var Dropdown = require('./Dropdown.react');
 
 function getNewsState(){
     return {
@@ -28,7 +29,6 @@ var NewsApp = React.createClass({
             if (queryList.code) {
                 UserStore.oauthGithub();
             }
-
         }
         return getNewsState();
     },
@@ -42,18 +42,28 @@ var NewsApp = React.createClass({
         NewsStore.addChangeListener(this._onChange);
         TwittsStore.addChangeListener(this._onChange);
         NavbarStore.addChangeListener(this._onChange);
-        console.log(this.state);
     },
     componentWillUnMount: function () {
         NewsStore.removeChageListener(this._onChange);
         TwittsStore.removeChageListener(this._onChange);
     },
+    changeSource: function () {
+        NewsActions.changeSource();
+    },
     render: function () {
-        return (
+    var  dropdownData = [{
+        key: "news",
+        text: "前端新闻"
+    },{
+        key: "twitts",
+        text: "热门 Twitts"
+    }];
+
+    return (
             <div>
                 <Navbar />
                 <div class="row">
-                    <Dropdown source={this.state.source}/>
+                    <Dropdown data={dropdownData} clickEvent={this.changeSource.bind(self)}/>
                 </div>
                 <section id="news">
                     {this.state.source == "news" ? <News news={this.state.news} /> : <Twitts twitts={this.state.twitts} />}

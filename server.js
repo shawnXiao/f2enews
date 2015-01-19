@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 
-var port = process.env.PORT || 3000;        // set our port
+var port = process.env.PORT || 3721;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -204,12 +204,6 @@ router.route('/send/weibo')
     var content = decodeURIComponent(params.content);
     var href = decodeURIComponent(params.href);
 
-    console.log("content: ", content);
-    console.log("href: ", href);
-    console.log("stringify:", querystring.stringify(content + " " + href));
-    console.log("escape :", querystring.escape(content + " " + href));
-    console.log("encodeURIComponent:", encodeURIComponent(content + " " + href));
-
     request.post({
         url: 'https://api.weibo.com/2/statuses/update.json',
         form: {
@@ -219,9 +213,22 @@ router.route('/send/weibo')
     }, function (e, r, body) {
         res.json(body)
     });
+
 });
 
+router.route('/send/weibod')
+.get(function (req, res) {
+    request.post({
+        url: 'https://api.weibo.com/2/statuses/update.json',
+        form: {
+            access_token: weibo_access_token,
+            status: '逛微博同时想偶尔看看前端技术？关注我吧！我将不定时自动更新微博，发送一些质量较高的前端文章。求各位大大带，求粉，求转发 @JS小组 @w3ctech @前端快爆 @淘宝UED @雄熊枭'
+        }
+    }, function (e, r, body) {
+        res.json(body)
+    });
 
+});
 
 
 function getWeixinTicket(callback) {
