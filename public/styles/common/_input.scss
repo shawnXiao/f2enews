@@ -1,0 +1,14 @@
+input {
+    outline: none;
+    border: none;
+}
+.input-search {
+    border-radius: 20px;
+    padding-left: 10px;
+    position: relative;
+    background-color: rgba(104, 137, 145, .7);
+    &::after {
+        content: ' ';
+        position: absolute;
+    }
+}

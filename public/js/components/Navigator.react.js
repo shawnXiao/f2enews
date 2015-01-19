@@ -3,9 +3,9 @@ var React = require('react');
 var NavigatorItem = React.createClass({
     render: function () {
         return (
-            <li>
+            <li className="navigator-item">
                 <a href={this.props.item.link} title={this.props.item.text} target="_blank">
-                    <img src={this.props.item.imgUrl} alt={this.props.item.text}/>
+                    <img className="navigator-potrit" src={this.props.item.imgUrl} alt={this.props.item.text}/>
                     <p>{this.props.item.text}</p>
                 </a>
             </li>
@@ -20,12 +20,13 @@ var Navigator = React.createClass({
         var navis = []
 
         navigatorData.forEach(function (item, index) {
-            navis.push(<NavigatorItem item={item} index={index} />);
+            navis.push(<NavigatorItem className="navigator-item" item={item} index={index} />);
         });
 
         return (
-            <div>
-                <ul>
+            <div className={this.props.className}>
+                <span className="navigator-icon"></span>
+                <ul className="navigator">
                     {navis}
                 </ul>
             </div>

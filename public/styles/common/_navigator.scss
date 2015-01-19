@@ -1,0 +1,26 @@
+.navigator {
+    display: flex;
+    position: absolute;
+    padding: 0;
+    top: 40px;
+    right: 0;
+    width: 200px;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    .navigator-item {
+        display: flex;
+        flex-flow: column;
+        text-align: center;
+        .navigator-potrit {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+.navigator-icon {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color: red;
+}

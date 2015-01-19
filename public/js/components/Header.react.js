@@ -45,12 +45,12 @@ var Navbar = React.createClass({
         return (
             <div>
                 <header>
-                    <div className="header-title">
-                        F2E News
-                    </div>
+                    <div className="header-title header-title_image">F2E News</div>
                     <InputSearch />
-                    <Navigator data={navigatorData}/>
-                    <Profile />
+                    <div className="header__side">
+                        <Navigator data={navigatorData} className="header__item"/>
+                        <Profile className="header__item"/>
+                    </div>
                 </header>
             </div>
         )

@@ -1,0 +1,4 @@
+@mixin image-url($url) {
+    background-image: url('/images/' + $url);
+    background-repeat: no-repeat;
+}

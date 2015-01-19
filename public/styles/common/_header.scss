@@ -1,28 +1,18 @@
 header {
-    &.fake {
-        display: none;
-    }
-    position: relative;
-    left: 0;
-    right: 0;
-    padding: 115px 16px 0;
+    padding: 16px;
+    display: flex;
+    color: #90aac7;
+    flex-flow: row wrap;
     background-color: $brand-header;
+    justify-content: space-between;
     @include transition(position 350ms ease-in);
-    &.header-fixed {
-        position: fixed;
-        padding-top: 20px;
-        top: 0;
-        .header-title {
-            font-size: 30px;
-        }
-    }
     @include shadowDepth(2);
     .header-title {
         color: $header-title;
-        width: 1160px;
-        margin: 0 auto;
         line-height: 1.5;
-        font-size: $font-size-large;
+        position: relative;
+        left: 50px;
+        font-size: $font-size-md;
         font-weight: $font-weight-boldest;
     }
     .float-btn {
@@ -30,5 +20,26 @@ header {
         position: absolute;
         bottom: -35px;
         right: 60px;
+    }
+    .header__item {
+        position: relative;
+        margin-right: 20px;
+    }
+    .header__side {
+        display: flex;
+    }
+}
+
+.header-title_image {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: ' ';
+        top: -4px;
+        left: -49px;
+        height: 60px;
+        width: 60px;
+        background-size: contain;
+        @include image-url('logo.png');
     }
 }
