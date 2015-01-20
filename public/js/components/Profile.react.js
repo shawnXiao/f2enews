@@ -4,7 +4,7 @@ var Profile = React.createClass({
     render: function () {
         return (
             <div className={this.props.className}>
-                <span className="profile-icon"></span>
+                <span className="icon-github3 profile-icon"></span>
                 <div className="profile"></div>
             </div>
         )

@@ -57,6 +57,9 @@ var NewsApp = React.createClass({
     },{
         key: "twitts",
         text: "热门 Twitts"
+    },{
+        key: "classics",
+        text: "前端经典"
     }];
 
     return (

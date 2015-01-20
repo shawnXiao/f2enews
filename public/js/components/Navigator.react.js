@@ -25,7 +25,7 @@ var Navigator = React.createClass({
 
         return (
             <div className={this.props.className}>
-                <span className="navigator-icon"></span>
+                <span className="icon-grid navigator-icon"></span>
                 <ul className="navigator">
                     {navis}
                 </ul>

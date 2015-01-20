@@ -219,6 +219,38 @@ th {
   padding: 0;
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src: url("/fonts/icomoon.eot?tnu0kn");
+  src: url("/fonts/icomoon.eot?#iefixtnu0kn") format("embedded-opentype"), url("/fonts/icomoon.woff?tnu0kn") format("woff"), url("/fonts/icomoon.ttf?tnu0kn") format("truetype"), url("/fonts/icomoon.svg?tnu0kn#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.icomoon, [class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search:before {
+  content: "\e986";
+}
+
+.icon-grid:before {
+  content: "\e601";
+}
+
+.icon-github3:before {
+  content: "\eab3";
+}
+
 header {
   padding: 16px;
   display: flex;
@@ -254,6 +286,7 @@ header .header__item {
 }
 header .header__side {
   display: flex;
+  align-self: center;
 }
 
 .header-title_image {
@@ -368,10 +401,11 @@ section {
 }
 
 .navigator-icon {
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: red;
+  font-size: 26px;
+  cursor: pointer;
+}
+.navigator-icon:hover {
+  color: #fff;
 }
 
 .profile {
@@ -385,10 +419,11 @@ section {
 }
 
 .profile-icon {
-  display: block;
-  width: 40px;
-  height: 40px;
-  background-color: blue;
+  font-size: 26px;
+  cursor: pointer;
+}
+.profile-icon:hover {
+  color: #fff;
 }
 
 input {
@@ -396,15 +431,28 @@ input {
   border: none;
 }
 
-.input-search {
+.input-search__wrapper {
+  position: relative;
+}
+
+.input-search__input {
   border-radius: 20px;
+  width: 200px;
+  height: 32px;
   padding-left: 10px;
   position: relative;
   background-color: rgba(104, 137, 145, 0.7);
 }
-.input-search::after {
-  content: ' ';
+
+.input-search__icon {
   position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
 }
 
 #news {

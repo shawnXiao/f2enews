@@ -19,8 +19,9 @@
 }
 
 .navigator-icon {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background-color: red;
+    font-size: $font-size-md;
+    cursor: pointer;
+    &:hover {
+        color: #fff;
+    }
 }

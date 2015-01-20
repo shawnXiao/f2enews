@@ -2,13 +2,26 @@ input {
     outline: none;
     border: none;
 }
-.input-search {
+.input-search__wrapper {
+    position: relative;
+}
+
+.input-search__input {
     border-radius: 20px;
+    width: 200px;
+    height: 32px;
     padding-left: 10px;
     position: relative;
     background-color: rgba(104, 137, 145, .7);
-    &::after {
-        content: ' ';
-        position: absolute;
-    }
+}
+
+.input-search__icon {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
 }
