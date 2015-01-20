@@ -6,6 +6,14 @@
     width: 200px;
     height: 200px;
     background-color: rgba(11,22,33, .5);
+    transform-origin: top right;
+    transform: scale(0, 0);
+    opacity: 0;
+    @include transition(all, 500ms, ease-in-out);
+    &.show {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
 }
 
 .profile-icon {

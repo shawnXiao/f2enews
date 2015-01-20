@@ -21,23 +21,23 @@ var Navbar = React.createClass({
 
         var navigatorData = [{
             text: "W3C",
-            imgUrl: "http://www.w3.org/2008/site/images/favicon.ico",
+            imgUrl: "w3c.ico",
             link: "http://www.w3c.org/TR"
         }, {
             text: "MDN",
-            imgUrl: "https://developer.cdn.mozilla.net/media/redesign/img/favicon72.png",
+            imgUrl: "mdn.png",
             link: "https://developer.mozilla.org/en-US/docs/Web/Guide"
         }, {
             text: "caniuse",
-            imgUrl: "http://caniuse.com/img/favicon-128.png",
+            imgUrl: "caniuse.png",
             link: "http://caniuse.com/"
         }, {
             text: "css-tricks",
-            imgUrl: "http://css-tricks.com/apple-touch-icon.png",
+            imgUrl: "csstricks.png",
             link: "http://css-tricks.com/"
         }, {
             text: "html5rocks",
-            imgUrl: "http://www.html5rocks.com/favicon.ico",
+            imgUrl: "html5rocks.ico",
             link: "http://www.html5rocks.com/en/"
         }];
 

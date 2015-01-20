@@ -383,21 +383,45 @@ section {
 .navigator {
   display: flex;
   position: absolute;
-  padding: 0;
   top: 40px;
   right: 0;
-  width: 200px;
+  width: 230px;
   justify-content: space-between;
   flex-flow: row wrap;
+  background-color: #fff;
+  padding: 20px;
+  transform-origin: top right;
+  transform: scale(0, 0);
+  opacity: 0;
+  -moz-transition: all, 500ms, ease-in-out;
+  -o-transition: all, 500ms, ease-in-out;
+  -webkit-transition: all, 500ms, ease-in-out;
+  transition: all, 500ms, ease-in-out;
 }
 .navigator .navigator-item {
   display: flex;
   flex-flow: column;
   text-align: center;
 }
-.navigator .navigator-item .navigator-potrit {
-  width: 40px;
-  height: 40px;
+.navigator .navigator-item .navigator-potrit__wrapper {
+  text-decoration: none;
+  color: #424242;
+  font-size: 14px;
+}
+.navigator .navigator-item .navigator-potrit__wrapper .navigator-potrit__image {
+  width: 60px;
+  height: 60px;
+}
+.navigator .navigator-item .navigator-potrit__wrapper .navigator-potrit__text {
+  width: 60px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 20px;
+}
+.navigator.show {
+  transform: scale(1, 1);
+  opacity: 1;
 }
 
 .navigator-icon {
@@ -416,6 +440,17 @@ section {
   width: 200px;
   height: 200px;
   background-color: rgba(11, 22, 33, 0.5);
+  transform-origin: top right;
+  transform: scale(0, 0);
+  opacity: 0;
+  -moz-transition: all, 500ms, ease-in-out;
+  -o-transition: all, 500ms, ease-in-out;
+  -webkit-transition: all, 500ms, ease-in-out;
+  transition: all, 500ms, ease-in-out;
+}
+.profile.show {
+  transform: scale(1, 1);
+  opacity: 1;
 }
 
 .profile-icon {
