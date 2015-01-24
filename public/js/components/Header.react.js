@@ -36,6 +36,10 @@ var Navbar = React.createClass({
             imgUrl: "csstricks.png",
             link: "http://css-tricks.com/"
         }, {
+            text: "smashingmagazine",
+            imgUrl: "smashing.png",
+            link: "http://www.smashingmagazine.com/"
+        }, {
             text: "html5rocks",
             imgUrl: "html5rocks.ico",
             link: "http://www.html5rocks.com/en/"

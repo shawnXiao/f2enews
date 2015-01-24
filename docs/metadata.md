@@ -29,6 +29,7 @@ link 元素允许开发者在文档中连接其他资源。link 元素的 href �
 * [给博客添加 rel=”author” 的 link](http://googlewebmastercentral.blogspot.com/2013/08/relauthor-frequently-asked-advanced.html)
 
 监听 link 元素的事件
+
     ```
         <script>
         function sheetLoaded() {
@@ -43,7 +44,14 @@ link 元素允许开发者在文档中连接其他资源。link 元素的 href �
         <link rel="stylesheet" href="mystylesheet.css" onload="sheetLoaded()" onerror="sheetError()">
     ```
 
-
-### [meta 元素]()
+### [meta 元素](https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element)
+https://support.google.com/webmasters/answer/35624?rd=1#3
+https://github.com/jikeytang/jikeytang.github.io/issues/6
+https://developers.google.com/webmasters/mobile-sites/?hl=en
+https://developers.google.com/webmasters/state-of-the-web/2005/metadata?csw=1
 https://support.google.com/webmasters/answer/79812?hl=en
-
+http://code.lancepollard.com/complete-list-of-html-meta-tags/
+https://github.com/h5bp/html5-boilerplate/blob/master/dist/doc/extend.md
+https://github.com/h5bp/html5-boilerplate/blob/master/dist/doc/html.md
+https://github.com/yisibl/blog/issues/1
+http://searchenginewatch.com/sew/how-to/2067564/how-to-use-html-meta-tags

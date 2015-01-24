@@ -1,9 +1,9 @@
 .navigator {
     display: flex;
     position: absolute;
-    top: 40px;
-    right: 0;
-    width: 230px;
+    top: 14px;
+    right: 12px;
+    width: 260px;
     justify-content: space-between;
     flex-flow: row wrap;
     background-color: #fff;
@@ -11,16 +11,18 @@
     transform-origin: top right;
     transform: scale(0, 0);
     opacity: 0;
+    border-radius: 3px;
     @include transition(all, 500ms, ease-in-out);
     .navigator-item {
         display: flex;
         flex-flow: column;
         text-align: center;
+        border: 1px solid transparent;
+        padding: 10px;
         .navigator-potrit__wrapper {
             text-decoration: none;
             color: $gray-dark;
             font-size: $font-size-sm;
-
             .navigator-potrit__image {
                 width: 60px;
                 height: 60px;
@@ -34,9 +36,13 @@
                 line-height: 20px;
             }
         }
+        &:hover {
+            border-color: rgba(233, 233, 233, .8);
+        }
     }
     &.show {
         transform: scale(1, 1);
+        @include shadowDepth(1);
         opacity: 1;
     }
 }
@@ -46,5 +52,6 @@
     cursor: pointer;
     &:hover {
         color: #fff;
+        @include shadowDepth(1);
     }
 }

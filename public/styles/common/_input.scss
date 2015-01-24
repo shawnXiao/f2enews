@@ -1,6 +1,9 @@
 input {
     outline: none;
     border: none;
+    &:focus {
+        @include shadowDepth(2);
+    }
 }
 .input-search__wrapper {
     position: relative;
@@ -13,6 +16,7 @@ input {
     padding-left: 10px;
     position: relative;
     background-color: rgba(104, 137, 145, .7);
+    @include shadowDepth(1);
 }
 
 .input-search__icon {
