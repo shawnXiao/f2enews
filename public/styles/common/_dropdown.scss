@@ -3,26 +3,33 @@
     padding: 0;
     position: relative;
     background-color: rgba(11, 12, 33, .5);
+    border: 1px solid transparent;
     border-radius: 2px;
+    box-shadow: 0 0 0 1px transparent inset;
     display: inline-block;
     min-width: 100px;
+    &.dropdown__active {
+        .dropdown__list {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
     .dropdown__selected {
         display: inline-block;
         padding: 10px 0;
         cursor: pointer;
         background-color: #f9fafc;
-        box-shadow: 0 0 0 1px transparent inset;
         color: rgba(0,0,0,.8);
         text-align: center;
         width: 100%;
-        border: 1px solid transparent;
         border-radius: 4px;
         &:hover {
             background-color: #e8e8e8;
         }
     }
     .dropdown__list {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
         position: absolute;
         margin: 0;
         padding: 0;
@@ -32,6 +39,7 @@
         z-index: 1;
         border: 1px solid rgba(39,41,43,.15);
         box-shadow: 0 0 4px 0 rgba(0,0,0,.08);
+        background-color: #fff;
         .dropdown__item {
             padding: 10px;
             border-top: 1px solid rgba(0,0,0,.05);
