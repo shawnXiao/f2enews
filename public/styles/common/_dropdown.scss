@@ -10,17 +10,19 @@
         display: inline-block;
         padding: 10px 0;
         cursor: pointer;
-        background-color: #d0d0d0;
+        background-color: #f9fafc;
         box-shadow: 0 0 0 1px transparent inset;
         color: rgba(0,0,0,.8);
         text-align: center;
         width: 100%;
         border: 1px solid transparent;
+        border-radius: 4px;
         &:hover {
             background-color: #e8e8e8;
         }
     }
     .dropdown__list {
+        display: none;
         position: absolute;
         margin: 0;
         padding: 0;

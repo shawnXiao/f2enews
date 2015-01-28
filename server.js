@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 
-var port = process.env.PORT || 3721;        // set our port
+var port = process.env.PORT || 3000;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================

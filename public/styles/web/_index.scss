@@ -1,3 +1,10 @@
+#f2enews {
+    background-color: #DCD6E0;
+    .bd {
+        width: 95%;
+        margin: 0 auto;
+    }
+}
 #news {
     @include shadowDepth(1);
     li {
