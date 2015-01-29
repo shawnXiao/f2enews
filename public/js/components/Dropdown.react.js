@@ -2,12 +2,21 @@ var React = require('react');
 
 var DropdownItem = React.createClass({
     itemClick: function (e) {
-        this.props.onClick.call(this, e);
+        var targetElem = event.target;
+        var dropDownElem = targetElem.parentNode;
+        while(!dropDownElem.classList.contains("dropdown")) {
+            dropDownElem = dropDownElem.parentNode;
+        }
+        var selectedElem = dropDownElem.querySelector(".dropdown__selected");
+        selectedElem.innerText = targetElem.innerText;
+        selectedElem.setAttribute("data-key", targetElem.getAttribute("data-key"));
+        dropDownElem.classList.remove("dropdown__active")
+        this.props.clickEvent.call(e, targetElem.getAttribute("data-key"));
     },
     render: function () {
         return (
-            <li className="dropdown__item" key={this.props.item} id={this.props.index} onClick={this.itemClick}>
-                <a href="javascript:void(0)" className="dropdown__anchor" data-key={this.props.item.key}>{this.props.item.text}</a>
+            <li className="dropdown__item" key={this.props.item} id={this.props.index} data-key={this.props.item.key} onClick={this.itemClick}>
+                {this.props.item.text}
             </li>
         )
     }
@@ -22,21 +31,13 @@ var Dropdown = React.createClass( {
         var parentElem = targetElem.parentNode;
         parentElem.classList.toggle("dropdown__active")
     },
-    itemClick: function (e) {
-        var targetElem = event.target;
-        var dropDownElem = targetElem.parentNode;
-        while(!dropDownElem.classList.contains("dropdown")) {
-            dropDownElem = dropDownElem.parentNode;
-        }
-        dropDownElem.classList.remove("dropdown__active")
-
-    },
     render: function () {
         var dropdownData = this.props.data;
         var rows = [];
+        var that = this;
 
         dropdownData.forEach(function (item, index) {
-            rows.push(<DropdownItem item={item} index={index} />);
+            rows.push(<DropdownItem item={item} index={index} clickEvent={that.props.clickEvent} />);
         });
 
         return (

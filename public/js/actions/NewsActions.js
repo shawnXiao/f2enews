@@ -20,9 +20,10 @@ var NewsActions = {
             data: data
         });
     },
-    changeSource: function () {
+    changeSource: function (source) {
         AppDispatcher.handleAction({
-            actionType: NewsConstants.CHANGE_SOURCE
+            actionType: NewsConstants.CHANGE_SOURCE,
+            source: source
         });
     },
     getMoreTwitts: function (start) {

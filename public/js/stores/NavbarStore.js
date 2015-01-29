@@ -4,12 +4,8 @@ var NewsConstants = require('../constants/NewsConstants');
 var _ = require('underscore');
 
 var currentSource = "news";
-function changeSource() {
-    if (currentSource === "news") {
-        currentSource = "twitts";
-    } else {
-        currentSource = "news";
-    }
+function changeSource(source) {
+        currentSource = source;
 }
 
 var NavbarStore = _.extend({}, EventEmitter.prototype, {
@@ -32,7 +28,7 @@ AppDispatcher.register(function (payload) {
 
     switch (action.actionType) {
         case NewsConstants.CHANGE_SOURCE:
-            changeSource();
+            changeSource(action.source);
             break;
         default:
             return true;

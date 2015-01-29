@@ -8,6 +8,7 @@ var Navbar = require('./Header.react');
 var Button = require('./Button.react');
 var Twitts = require('./Twitts.react');
 var Dropdown = require('./Dropdown.react');
+var NewsActions = require('../actions/NewsActions')
 
 function getNewsState(){
     return {
@@ -47,20 +48,20 @@ var NewsApp = React.createClass({
         NewsStore.removeChageListener(this._onChange);
         TwittsStore.removeChageListener(this._onChange);
     },
-    changeSource: function () {
-        NewsActions.changeSource();
+    changeSource: function (source) {
+        NewsActions.changeSource(source);
     },
     render: function () {
-    var  dropdownData = [{
-        key: "news",
-        text: "前端新闻"
-    },{
-        key: "twitts",
-        text: "热门 Twitts"
-    },{
-        key: "classics",
-        text: "前端经典"
-    }];
+        var  dropdownData = [{
+            key: "news",
+            text: "前端新闻"
+        },{
+            key: "twitts",
+            text: "热门 Twitts"
+        },{
+            key: "classics",
+            text: "前端经典"
+        }];
 
     return (
             <div>
