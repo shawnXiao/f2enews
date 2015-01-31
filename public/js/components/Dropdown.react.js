@@ -42,7 +42,7 @@ var Dropdown = React.createClass( {
 
         return (
             <div className="dropdown">
-                <span className="dropdown__selected" onClick={this.toggle}>Testing</span>
+                <span className="dropdown__selected" onClick={this.toggle}>{this.props.data[0].text}</span>
                 <ul className="dropdown__list">
                     {rows}
                 </ul>

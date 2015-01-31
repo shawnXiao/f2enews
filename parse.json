@@ -1,0 +1,90 @@
+{
+    "parser": [{
+            'domain': 'dailyjs',
+            'url': 'http://dailyjs.com/',
+            'selectors': [{
+                'pattern': "h2 a",
+                'attrs':[{
+                    "key": "url",
+                    "attr": "href"
+                },{
+                    "key": "name",
+                    "attr": "text"
+                }]
+            }]
+        }, {
+            'domain': 'html5weekly',
+            'url': 'http://html5weekly.com/issues',
+            'selectors': [{
+                'pattern': ".issue a",
+                'attrs': [{"key": "url", "attr": "href"}],
+                'isCatch': "1",
+                'child': {
+                    'selectors': [{
+                        'pattern': 'tr td div > a',
+                        'attrs':[{
+                            "key": "url",
+                            "attr": "href"
+                        },{
+                            "key": "name",
+                            "attr": "text"
+                        }]
+                    }]
+                }
+            }]
+        }, {
+            'domain': 'echojs',
+            'url': 'http://www.echojs.com/',
+            'selectors': [{
+                'pattern': "article h2 a",
+                'attrs':[{
+                    "key": "url",
+                    "attr": "href"
+                },{
+                    "key": "name",
+                    "attr": "text"
+                }]
+            }]
+        }, {
+            'domain': 'javascriptweekly',
+            'url': 'http://javascriptweekly.com/issues',
+            'selectors': [{
+                'pattern': ".issue a",
+                'isCatch': "1",
+                'attrs': [{"key": "url", "attr": "href"}],
+                'child': {
+                    'selectors': [{
+                        'pattern': 'tr td div > a',
+                        'attrs':[{
+                            "key": "url",
+                            "attr": "href"
+                        },{
+                            "key": "name",
+                            "attr": "text"
+                        }]
+                    }]
+                }
+            }]
+        }, {
+            'domain': '75team',
+            'url': 'http://www.75team.com/weekly/',
+            'selectors': [{
+                'pattern': ".issue-list a",
+                'attrs': [{"key": "url", "attr": "href"}],
+                'isCatch': "1",
+                'child': {
+                    'selectors': [{
+                        'pattern': ".title a",
+                        'attrs':[{
+                            "key": "url",
+                            "attr": "href"
+                        },{
+                            "key": "name",
+                            "attr": "text"
+                        }]
+                    }]
+                }
+            }]
+        }]
+
+}
