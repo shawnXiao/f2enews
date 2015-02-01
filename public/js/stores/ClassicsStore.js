@@ -2,21 +2,12 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var NewsAPI = require('../utils/newsAPI');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
-var NewsConstants = require('../constants/NewsConstants');
 
-var _news = [];
+var _classics = [];
 
-function loadNews(data) {
-    _news = _news.concat(data);
-}
-
-function getMoreNews(start) {
-    NewsAPI.getNewsData(_news.length);
-}
-
-var NewsStore = _.extend({}, EventEmitter.prototype, {
-    getNews: function () {
-        return _news;
+var ClassicsStore = _.extend({}, EventEmitter.prototype, {
+    getClassics: function () {
+        return _classics;
     },
     emitChange: function () {
         this.emit('change');
@@ -47,3 +38,4 @@ AppDispatcher.register(function (payload) {
     NewsStore.emitChange();
 })
 module.exports = NewsStore;
+
