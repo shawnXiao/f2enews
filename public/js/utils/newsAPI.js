@@ -4,6 +4,9 @@ module.exports = {
     getNewsData: function (start) {
         shawn.get('/api/news/start/' + (start || 0) , NewsActions.receiveNews);
     },
+    getClassics: function () {
+        shawn.get('/api/classics', NewsActions.receiveClassic);
+    },
     oauthGithub: function (code) {
         shawn.get('api/oauth/github/' + code, NewsActions.receiveUserInfo);
     },

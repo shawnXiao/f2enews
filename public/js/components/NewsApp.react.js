@@ -7,6 +7,7 @@ var News = require('./News.react');
 var Navbar = require('./Header.react');
 var Button = require('./Button.react');
 var Twitts = require('./Twitts.react');
+var Classics = require('./Classics.react');
 var Dropdown = require('./Dropdown.react');
 var NewsActions = require('../actions/NewsActions')
 
@@ -14,6 +15,7 @@ function getNewsState(){
     return {
         news: NewsStore.getNews(),
         source: NavbarStore.getSource(),
+        classics: ClassicsStore.getClassics(),
         twitts: TwittsStore.getTwitts()
     }
 }
@@ -63,6 +65,19 @@ var NewsApp = React.createClass({
             text: "前端经典"
         }];
 
+        var content;
+        if (this.state.source == "news") {
+            content = <News news={this.state.news} />;
+        }
+
+        if (this.state.source == "twitts") {
+            content = <Twitts twitts={this.state.twitts} />;
+        }
+
+        if (this.state.source == "classics") {
+            content = <Classics classics={this.state.classics} />;
+        }
+
     return (
             <div>
                 <Navbar />
@@ -71,7 +86,7 @@ var NewsApp = React.createClass({
                         <Dropdown data={dropdownData} clickEvent={this.changeSource.bind(self)} />
                     </div>
                     <section id="news">
-                        {this.state.source == "news" ? <News news={this.state.news} /> : <Twitts twitts={this.state.twitts} />}
+                        {this.state.source == "news" ?  :  />}
                     </section>
                 </div>
             </div>

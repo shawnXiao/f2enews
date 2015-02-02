@@ -2,8 +2,13 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var NewsAPI = require('../utils/newsAPI');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
+var ClassicsConstants = require('../constants/ClassicsConstants');
 
 var _classics = [];
+
+function loadClassics(data) {
+    _classics = data;
+}
 
 var ClassicsStore = _.extend({}, EventEmitter.prototype, {
     getClassics: function () {
@@ -25,11 +30,8 @@ AppDispatcher.register(function (payload) {
     var text;
 
     switch (action.actionType) {
-        case NewsConstants.RECEIVE_DATA:
+        case ClassicsConstants.RECEIVE_DATA:
             loadNews(action.data);
-            break;
-        case NewsConstants.MORE_DATA:
-            getMoreNews();
             break;
         default:
             return true;

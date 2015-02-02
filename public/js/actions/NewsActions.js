@@ -1,10 +1,17 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var NewsConstants = require('../constants/NewsConstants');
+var ClassicsConstants = require('../constants/ClassicsConstants');
 
 var NewsActions = {
     receiveNews: function (data) {
         AppDispatcher.handleAction({
             actionType: NewsConstants.RECEIVE_DATA,
+            data: data
+        });
+    },
+    receiveClassics: function (data) {
+        AppDispatcher.handleAction({
+            actionType: ClassicsConstants.RECEIVE_DATA,
             data: data
         });
     },

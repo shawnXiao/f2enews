@@ -13,6 +13,7 @@ var mongoose   = require('mongoose');
 var querystring = require('querystring');
 var News = require('./app/models/news');
 var Twitts = require('./app/models/twitts');
+var Classics = require('./app/models/classics');
 var config = require('./config');
 var crypto = require('crypto');
 
@@ -45,6 +46,16 @@ router.get('/', function(req, res) {
 router.route('/news')
 .get(function (req, res) {
     News.find(function (err, news) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(news);
+    })
+});
+
+router.route('/classics')
+.get(function (req, res) {
+    Classics.find(function (err, news) {
         if (err) {
             res.send(err);
         }
