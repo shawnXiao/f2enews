@@ -2,7 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var NewsAPI = require('../utils/newsAPI');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
-var ClassicsConstants = require('../constants/ClassicsConstants');
+var NewsConstants = require('../constants/NewsConstants');
 
 var _classics = [];
 
@@ -30,14 +30,16 @@ AppDispatcher.register(function (payload) {
     var text;
 
     switch (action.actionType) {
-        case ClassicsConstants.RECEIVE_DATA:
-            loadNews(action.data);
+        case NewsConstants.RECEIVE_Classics_DATA:
+            debugger;
+            console.log("action", action);
+            loadClassics(action.data);
             break;
         default:
             return true;
     }
 
-    NewsStore.emitChange();
+    ClassicsStore.emitChange();
 })
-module.exports = NewsStore;
+module.exports = ClassicsStore;;
 

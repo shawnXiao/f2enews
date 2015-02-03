@@ -11,6 +11,7 @@ function loadNews(data) {
 }
 
 function getMoreNews(start) {
+    console.log("dsfasdfasdf");
     NewsAPI.getNewsData(_news.length);
 }
 

@@ -3,6 +3,7 @@ var NewsStore = require('../stores/NewsStore');
 var TwittsStore = require('../stores/TwittsStore');
 var NavbarStore = require('../stores/NavbarStore');
 var UserStore = require('../stores/UserStore');
+var ClassicsStore = require('../stores/ClassicsStore');
 var News = require('./News.react');
 var Navbar = require('./Header.react');
 var Button = require('./Button.react');
@@ -45,10 +46,12 @@ var NewsApp = React.createClass({
         NewsStore.addChangeListener(this._onChange);
         TwittsStore.addChangeListener(this._onChange);
         NavbarStore.addChangeListener(this._onChange);
+        ClassicsStore.addChangeListener(this._onChange);
     },
     componentWillUnMount: function () {
         NewsStore.removeChageListener(this._onChange);
         TwittsStore.removeChageListener(this._onChange);
+        ClassicsStore.removeChageListener(this._onChange);
     },
     changeSource: function (source) {
         NewsActions.changeSource(source);
@@ -86,7 +89,7 @@ var NewsApp = React.createClass({
                         <Dropdown data={dropdownData} clickEvent={this.changeSource.bind(self)} />
                     </div>
                     <section id="news">
-                        {this.state.source == "news" ?  :  />}
+                        {content}
                     </section>
                 </div>
             </div>
@@ -94,7 +97,6 @@ var NewsApp = React.createClass({
     },
     _onChange: function () {
         this.setState(getNewsState());
-        console.log(this.state.source);
     }
 });
 

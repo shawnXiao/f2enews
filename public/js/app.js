@@ -4,6 +4,7 @@ var NewsApp = require('./components/NewsApp.react');
 
 NewsAPI.getNewsData();
 NewsAPI.getTwittsData();
+NewsAPI.getClassics();
 
 React.render(
     <NewsApp />,

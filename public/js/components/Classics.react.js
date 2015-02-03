@@ -17,7 +17,8 @@ var NewsItem = React.createClass({
 var Classics = React.createClass({
     render: function () {
         var self = this;
-        var news = this.props.news;
+        console.log(this.props.classics);
+        var news = this.props.classics;
         var newsRows = [];
         news.forEach(function (newsItem, index) {
             newsRows.push(<NewsItem newsItem={newsItem} index={index} />)
