@@ -251,6 +251,10 @@ th {
   content: "\eab3";
 }
 
+.icon-weibo:before {
+  content: "\f01af";
+}
+
 .dropdown {
   margin: 0;
   padding: 0;
@@ -532,6 +536,8 @@ section {
 .profile-icon {
   font-size: 26px;
   cursor: pointer;
+  text-decoration: none;
+  margin-right: 20px;
 }
 .profile-icon:hover {
   color: #fff;

@@ -14,8 +14,8 @@ var Profile = React.createClass({
     render: function () {
         return (
             <div className={this.props.className}>
-                <span className="icon-github3 profile-icon" onClick={this.triggerDialog}></span>
-                <div className="profile"></div>
+                <a className="icon-github3 profile-icon" href="https://github.com/shawnXiao/f2enews" target="_blank"></a>
+                <a className="icon-weibo profile-icon" href="http://weibo.com/u/5445433790" target="_blank"></a>
             </div>
         )
     }

@@ -22,6 +22,16 @@ function getNewsState(){
 }
 
 var NewsApp = React.createClass({
+    dropdownData : [{
+        key: "news",
+        text: "前端新闻"
+    },{
+        key: "twitts",
+        text: "热门 Twitts"
+    },{
+        key: "classics",
+        text: "前端经典"
+    }],
     getInitialState: function () {
         var searchStr = location.search.slice(1);
         if (searchStr) {
@@ -30,8 +40,26 @@ var NewsApp = React.createClass({
             queryList.forEach(function (item) {
                 queryObj[item.split("=")[0]] = item.split("=")[1];
             });
-            if (queryList.code) {
+
+            if (queryObj.code) {
                 UserStore.oauthGithub();
+            }
+
+            if (queryObj.source) {
+                var initIndex = 0;
+                this.dropdownData.forEach(function (item, index) {
+                    if (item.key === queryObj.source) {
+                        initIndex = index;
+                    }
+                });
+                if (initIndex > 0) {
+                    NewsActions.changeSource(queryObj.source);
+
+                    var tempt = this.dropdownData[0];
+                    var length = this.dropdownData.length;
+                    this.dropdownData[0] = this.dropdownData[initIndex];
+                    this.dropdownData[length - 1] = tempt;
+                }
             }
         }
         return getNewsState();
@@ -57,16 +85,6 @@ var NewsApp = React.createClass({
         NewsActions.changeSource(source);
     },
     render: function () {
-        var  dropdownData = [{
-            key: "news",
-            text: "前端新闻"
-        },{
-            key: "twitts",
-            text: "热门 Twitts"
-        },{
-            key: "classics",
-            text: "前端经典"
-        }];
 
         var content;
         if (this.state.source == "news") {
@@ -86,7 +104,7 @@ var NewsApp = React.createClass({
                 <Navbar />
                 <div className="bd">
                     <div className="row">
-                        <Dropdown data={dropdownData} clickEvent={this.changeSource.bind(self)} />
+                        <Dropdown data={this.dropdownData} clickEvent={this.changeSource.bind(self)} />
                     </div>
                     <section id="news">
                         {content}

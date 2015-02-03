@@ -10,7 +10,6 @@ var NewsActions = {
         });
     },
     receiveClassics: function (data) {
-        console.log("ddd", data);
         AppDispatcher.handleAction({
             actionType: NewsConstants.RECEIVE_Classics_DATA,
             data: data

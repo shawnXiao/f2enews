@@ -31,8 +31,6 @@ AppDispatcher.register(function (payload) {
 
     switch (action.actionType) {
         case NewsConstants.RECEIVE_Classics_DATA:
-            debugger;
-            console.log("action", action);
             loadClassics(action.data);
             break;
         default:

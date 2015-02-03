@@ -7,7 +7,7 @@ var NewsItem = React.createClass({
         var newsItem = this.props.newsItem;
         return (
             <li key={newsItem} id={this.props.index}>
-                <a href={newsItem.href} target="_blank">{this.props.index + 1}.  {newsItem.title}</a>
+                <a href={newsItem.url} target="_blank">{this.props.index + 1}.  {newsItem.title}</a>
             </li>
         )
     }
@@ -17,7 +17,6 @@ var NewsItem = React.createClass({
 var Classics = React.createClass({
     render: function () {
         var self = this;
-        console.log(this.props.classics);
         var news = this.props.classics;
         var newsRows = [];
         news.forEach(function (newsItem, index) {

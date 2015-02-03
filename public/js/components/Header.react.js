@@ -50,7 +50,6 @@ var Navbar = React.createClass({
             <div>
                 <header>
                     <div className="header-title header-title_image">F2E News</div>
-                    <InputSearch />
                     <div className="header__side">
                         <Navigator data={navigatorData} className="header__item"/>
                         <Profile className="header__item"/>
