@@ -28,23 +28,17 @@ link 元素允许开发者在文档中连接其他资源。link 元素的 href �
 * [favicon 使用指南](https://github.com/audreyr/favicon-cheat-sheet)
 * [给博客添加 rel=”author” 的 link](http://googlewebmastercentral.blogspot.com/2013/08/relauthor-frequently-asked-advanced.html)
 
-监听 link 元素的事件
 
-    ```
-        <script>
-        function sheetLoaded() {
-        // Do something interesting; the sheet has been loaded
-        }
-
-        function sheetError() {
-        alert("An error occurred loading the stylesheet!");
-        }
-        </script>
-
-        <link rel="stylesheet" href="mystylesheet.css" onload="sheetLoaded()" onerror="sheetError()">
-    ```
 
 ### [meta 元素](https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element)
+meta 元素用于表现各种不能够使用 title, base, link, style 和 scripts 元素不能表示的 meta 数据。
+
+ * 通过 name 属性可以指定文档级别的 metadata
+ * 通过 http-equiv 属性可以指定浏览器的编译指令
+ * 通过 charset 指定文档的编码信息
+ 
+ 
+
 https://support.google.com/webmasters/answer/35624?rd=1#3
 https://github.com/jikeytang/jikeytang.github.io/issues/6
 https://developers.google.com/webmasters/mobile-sites/?hl=en
