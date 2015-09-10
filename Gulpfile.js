@@ -156,7 +156,7 @@ var cssTask = function (options) {
           }));
       };
       run();
-      gulp.watch(options.src, run);
+    gulp.watch(options.src, run);
     } else {
       gulp.src(options.src)
           .pipe(compass({

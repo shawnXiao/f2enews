@@ -16,6 +16,9 @@ var Twitts = require('./app/models/twitts');
 var Classics = require('./app/models/classics');
 var config = require('./config');
 var crypto = require('crypto');
+var marked = require("marked");
+var fs = require("fs");
+var path = require("path");
 
 mongoose.connect('mongodb://127.0.0.1:27017/f2enews');
 
@@ -116,7 +119,6 @@ router.route('/twitts/start/:start')
         res.json(twitts);
     })
 });
-
 
 // more routes for our API will happen here
 router.route('/oauth/weixin')
@@ -242,6 +244,30 @@ router.route('/send/weibod')
 });
 
 
+// REGISTER OUR ROUTES -------------------------------
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
+
+app.get("/article/:title", function (req, res) {
+    var title = req.params.title + ".md";
+    var filePath = path.join(__dirname + '/public', "articles", title);
+
+    var content;
+    if (fs.existsSync(filePath)) {
+        content = fs.readFileSync(filePath, "utf-8");
+    } else {
+        content = "404";
+    }
+
+    res.send(marked(content));
+});
+
+// START THE SERVER
+// =============================================================================
+app.listen(port);
+console.log('Magic happens on port ' + port);
+
 function getWeixinTicket(callback) {
     getWeixinToken(function () {
 
@@ -312,13 +338,3 @@ function getWeixinJSSignature(noncestr, timestamp, signUrl) {
 
     return shaResult;
 }
-
-
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-app.use('/api', router);
-
-// START THE SERVER
-// =============================================================================
-app.listen(port);
-console.log('Magic happens on port ' + port);

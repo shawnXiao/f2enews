@@ -42,7 +42,7 @@
         <script type="text/javascript" charset="utf-8">
 
         var wxConfig = {
-            debug: false,
+            debug: true,
             appId: "wxa119068ab50688a3",
             timestamp: (+new Date() + "").substring(0, 10) - 0,
             nonceStr: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
@@ -51,19 +51,17 @@
         };
 
         var xhr = new XMLHttpRequest();
-        var url = "http://106.185.37.64:3721/signature?" + "timestamp=" + wxConfig.timestamp + "&nonce=" + wxConfig.nonceStr + "&signurl=" + location.href;
+        var url = "http://106.185.37.64:3721/api/token/weixin/jssignature?" + "timestamp=" + wxConfig.timestamp + "&nonce=" + wxConfig.nonceStr + "&signurl=" + location.href;
 
         xhr.onreadystatechange = function (e) {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-
-                    var signature = JSON.parse(xhr.responseText).shaResult;
+                    var signature = JSON.parse(xhr.responseText).signature;
+                    alert(signature)
                     wxConfig.signature =  signature
                     wx.config(wxConfig);
-
                     document.getElementById("config").innerText = JSON.stringify(wxConfig)
                     wx.ready(wxReady);
-
                     wx.error(function (res) {
                         document.getElementById("error").innerText = JSON.stringify(res.errMsg)
                     });
